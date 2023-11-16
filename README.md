@@ -13,7 +13,7 @@ Shump! is a simple shoot-em-up game, written in Pygame library
         self.rect.bottom = HEIGHT - 10
         self.speedx = 0
 ```
-This method is called when a new instance of the Player class is created. It initializes various attributes such as position, image, speed.
+##### This method is called when a new instance of the Player class is created. It initializes various attributes such as position, image, speed.
 
 ```
     def update(self):
@@ -31,8 +31,8 @@ This method is called when a new instance of the Player class is created. It ini
         if self.rect.left < 0:
             self.rect.left = 0
 ```
-This method is called during each iteration of the game loop and is responsible for updating the player's state.
-"keystate" retrieves the state of all keys on the keyboard. And this time, we'll use LEFT, RIGHT key and spacebar. Those keys will control the player's movement and shooting.
+##### This method is called during each iteration of the game loop and is responsible for updating the player's state.
+##### "keystate" retrieves the state of all keys on the keyboard. And this time, we'll use LEFT, RIGHT key and spacebar. Those keys will control the player's movement and shooting.
 
 ```
     def shoot(self):
@@ -44,8 +44,8 @@ This method is called during each iteration of the game loop and is responsible 
             bullets.add(bullet)
             shoot_sound.play()
 ```
-This function handles the player's shooting action.
-'self.last_shot','self.shoot_delay' are implementing cooldown
+##### This function handles the player's shooting action.
+##### 'self.last_shot','self.shoot_delay' are implementing cooldown
 
 ### class Mob
 ```
@@ -62,11 +62,11 @@ class Mob(pygame.sprite.Sprite):
             self.speedy = random.randrange(1, 8)
             ...
 ```
-Initialize method is called when a new instance of the Player class is created. It initializes various attributes such as position, image, radius, rotation and speed.
-
-Rotate method is called for rotating the mob's image. It is called during each iteration of the game loop. Rotates the mob's image based on its rotation speed (self.rot_speed).
-
-Update method is called during each iteration of the game loop and for updating the mob's state. It calls the Rotate method to update the mob's rotated image. It also updates the position of the mob based on its speed (self.speedx and self.speedy).
+##### Initialize method is called when a new instance of the Player class is created. It initializes various attributes such as position, image, radius, rotation and speed.
+##### Rotate method is called for rotating the mob's image. It is called during each iteration of the game loop. Rotates the mob's image based on its rotation speed (self.rot_speed).
+##### 
+##### Update method is called during each iteration of the game loop and for updating the mob's state. It calls the Rotate method to update the mob's rotated image. It also updates the position of the mob based on its speed (self.speedx and self.speedy).
+##### 
 
 ### class Bullet
 ```
@@ -79,9 +79,9 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
             ...
 ```
-Firstly, initialize various attiributes of bullets such as area, vertical speed. 
-Then update method will update the position of the bullet based on its vertical speed. When the bullet get out of its area, it removes the bullet and moves off the top of the screen.
-
+##### Firstly, initialize various attiributes of bullets such as area, vertical speed. 
+##### Then update method will update the position of the bullet based on its vertical speed. When the bullet get out of its area, it removes the bullet and moves off the top of the screen.
+##### 
 ### class Explosion
 ```
   class Explosion(pygame.sprite.Sprite):
@@ -101,9 +101,9 @@ Then update method will update the position of the bullet based on its vertical 
                 self.rect = self.image.get_rect()
                 self.rect.center = center
 ```
-The initialize method initializes the attributes of explosions such as size, area, frame counter. 
-Then update method gets the current time, then checks if it's time to update the frame considering the frame rate. 
-When it's time to update the frame of the explosion animation, advances to the next frame by update self.frame. Then checks if all frames have been shown. If all frames have been shown, call 'kill()' method to remove instances of classes which are no longer needed. If not, updates the image and rectangle with the current frame.
+##### The initialize method initializes the attributes of explosions such as size, area, frame counter. 
+##### Then update method gets the current time, then checks if it's time to update the frame considering the frame rate. 
+##### When it's time to update the frame of the explosion animation, advances to the next frame by update self.frame. Then checks if all frames have been shown. If all frames have been shown, call 'kill()' method to remove instances of classes which are no longer needed. If not, updates the image and rectangle with the current frame.
 
 ### Loading Graphics
 #### Images
@@ -127,10 +127,10 @@ for i in range(9):
     img_sm = pygame.transform.scale(img, (32, 32))
     explosion_anim['sm'].append(img_sm)
 ```
-First of all, loads the background image using 'pygame.image.load' and converts it to the Pygame surface format with function 'convert()'. Then loads the player's image, the bullet image and several meteor images. Iterating for loop(for img in meteor_list), it loads two different meteor image from the specified directory(all_dir) then converts it.
-
-For explosion animation, code creates a directory to store several explosion animation images. 
-Iterating for loop, loads the base explosion image then scales the image to a larger (or smaller) size for the large (small) explosion.
+##### First of all, loads the background image using 'pygame.image.load' and converts it to the Pygame surface format with function 'convert()'. Then loads the player's image, the bullet image and several meteor images. Iterating for loop(for img in meteor_list), it loads two different meteor image from the specified directory(all_dir) then converts it.
+##### 
+##### For explosion animation, code creates a directory to store several explosion animation images. 
+##### Iterating for loop, loads the base explosion image then scales the image to a larger (or smaller) size for the large (small) explosion.
 
 #### Sounds
 ```
@@ -141,9 +141,9 @@ for snd in ['hit01.wav', 'impactshort.wav']:
 pygame.mixer.music.load(path.join(all_dir, 'cutie_pie.wav'))
 pygame.mixer.music.set_volume(0.4)
 ```
-Setting 'playerhit.mp3' as shoot_sound, explosion sounds would be 'hit01.wav' or 'impactshort.wav'. Function 'expl_sounds.append' loads each explosion sound and appends it to the list
-Background music would be 'cutie_pie.wav'. Finally sets the volume of the background music.
-
+##### Setting 'playerhit.mp3' as shoot_sound, explosion sounds would be 'hit01.wav' or 'impactshort.wav'. Function 'expl_sounds.append' loads each explosion sound and appends it to the list
+##### Background music would be 'cutie_pie.wav'. Finally sets the volume of the background music.
+##### 
 ### Running loop
 ```
 ...
@@ -168,15 +168,15 @@ Background music would be 'cutie_pie.wav'. Finally sets the volume of the backgr
             running = False
 ...
 ```
-All the updates of game state start with all_sprites.update().
-Firstly, check for collisions between bullets and mobs, updating the score and creating explosion effects accordingly.
-Nextly, check for collisions between mobs and the player, reducing the player's shield and creating explosion effects.
-Both for loops are updating the score, playing sounds, creating explosions, and managing the player's shield strength. Additionally, the newmob() is called to spawn new mobs after collisions.
-If the player's shield drops to zero, the game loop is exited.
+##### All the updates of game state start with all_sprites.update().
+##### Firstly, check for collisions between bullets and mobs, updating the score and creating explosion effects accordingly.
+##### Nextly, check for collisions between mobs and the player, reducing the player's shield and creating explosion effects.
+##### Both for loops are updating the score, playing sounds, creating explosions, and managing the player's shield strength. Additionally, the newmob() is called to spawn new mobs after collisions.
+##### If the player's shield drops to zero, the game loop is exited.
 
 ## Run the game
 > $ python shump-10.py
 
 ## Game Control
-Left/Right Arrow Keys: Move the player
-Spacebar: Shoot bullets
+#### Left/Right Arrow Keys: Move the player
+#### Spacebar: Shoot bullets
