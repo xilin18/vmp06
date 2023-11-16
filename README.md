@@ -1,11 +1,6 @@
 # shump-10
 Shump! is a simple shoot-em-up game, written in Pygame library
 
-
-
-## Run the game
-> $ python shump-10.py
-
 ### Class Player
 ```
   class Player(pygame.sprite.Sprite):
@@ -84,7 +79,8 @@ class Bullet(pygame.sprite.Sprite):
             self.kill()
             ...
 ```
-
+Firstly, initialize various attiributes of bullets such as area, vertical speed. 
+Then update method will update the position of the bullet based on its vertical speed. When the bullet get out of its area, it removes the bullet and moves off the top of the screen.
 
 ### class Explosion
 ```
@@ -105,6 +101,9 @@ class Bullet(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.rect.center = center
 ```
+The initialize method initializes the attributes of explosions such as size, area, frame counter. 
+Then update method gets the current time, then checks if it's time to update the frame considering the frame rate. 
+When it's time to update the frame of the explosion animation, advances to the next frame by update self.frame. Then checks if all frames have been shown. If all frames have been shown, call 'kill()' method to remove instances of classes which are no longer needed. If not, updates the image and rectangle with the current frame.
 
 ### Loading Graphics
 #### Images
@@ -128,6 +127,10 @@ for i in range(9):
     img_sm = pygame.transform.scale(img, (32, 32))
     explosion_anim['sm'].append(img_sm)
 ```
+First of all, loads the background image using 'pygame.image.load' and converts it to the Pygame surface format with function 'convert()'. Then loads the player's image, the bullet image and several meteor images. Iterating for loop(for img in meteor_list), it loads two different meteor image from the specified directory(all_dir) then converts it.
+
+For explosion animation, code creates a directory to store several explosion animation images. 
+Iterating for loop, loads the base explosion image then scales the image to a larger (or smaller) size for the large (small) explosion.
 
 #### Sounds
 ```
@@ -138,6 +141,8 @@ for snd in ['hit01.wav', 'impactshort.wav']:
 pygame.mixer.music.load(path.join(all_dir, 'cutie_pie.wav'))
 pygame.mixer.music.set_volume(0.4)
 ```
+Setting 'playerhit.mp3' as shoot_sound, explosion sounds would be 'hit01.wav' or 'impactshort.wav'. Function 'expl_sounds.append' loads each explosion sound and appends it to the list
+Background music would be 'cutie_pie.wav'. Finally sets the volume of the background music.
 
 ### Running loop
 ```
@@ -168,6 +173,9 @@ Firstly, check for collisions between bullets and mobs, updating the score and c
 Nextly, check for collisions between mobs and the player, reducing the player's shield and creating explosion effects.
 Both for loops are updating the score, playing sounds, creating explosions, and managing the player's shield strength. Additionally, the newmob() is called to spawn new mobs after collisions.
 If the player's shield drops to zero, the game loop is exited.
+
+## Run the game
+> $ python shump-10.py
 
 ## Game Control
 Left/Right Arrow Keys: Move the player
